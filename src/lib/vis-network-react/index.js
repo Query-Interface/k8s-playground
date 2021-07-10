@@ -1,3 +1,5 @@
+// This version of vis-network-react.js module is used to patch the npm version 1.3.6 which contains a performance issue related to events leaks.
+// see: https://github.com/visjs/vis-network-react/pull/56
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
