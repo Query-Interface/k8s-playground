@@ -22,10 +22,15 @@ interface Spec {
 
 }
 
+type Kind = "deploy" | "service" | "configMap" | "secret" | "persistentVolume" | "persistentVolumeClaim" | "storageClass" | "volume" | "job" | "cronJob" | "networkPolicy";
+type ServiceType = "ClusterIP" | "NodePort" | "LoadBalancer";
+
 export {
     ApiResponse,
     Resource,
     Pod,
     Spec,
-    Metadata
+    Metadata,
+    Kind,
+    ServiceType
 }

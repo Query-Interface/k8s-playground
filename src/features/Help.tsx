@@ -12,12 +12,12 @@ const Help: React.FC = () => {
     return (
         <div style={{width:"100%"}}>
         <Tabs defaultActiveKey="help" transition={false} >
-            <Tab eventKey="help" title="Help">
+            <Tab key="links" eventKey="help" title="Help">
                 <ul>
                     {task?.help.map((item) => <li><a href={item}>{item}</a></li>)}
                 </ul>
             </Tab>
-            <Tab eventKey="template" title="Template">
+            <Tab key="template" eventKey="template" title="Template">
                 <pre>
                     {task?.template}
                 </pre>

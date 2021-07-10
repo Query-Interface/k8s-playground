@@ -1,3 +1,5 @@
+import { Kind, ServiceType } from "./types";
+
 const sample = {
     id: "042fe56e-1777-4cdf-a505-7c6819c16bde",
     name: "Bravo - KodeKloud",
@@ -7,6 +9,7 @@ const sample = {
             name: "drupal-service",
             kind: "service",
             requirements: {
+                name: "drupal-service",
                 type: "NodePort",
                 ports: {
                     port: 80,
@@ -94,7 +97,13 @@ const sample = {
             name: "drupal-mysql-service",
             kind: "service",
             requirements: {
-                "todo": "TODO"
+                name: "drupal-mysql-service",
+                type: "ClusterIP",
+                ports: {
+                    port: 3306,
+                    targetPort: 3306
+                },
+                selector: "app=drupal-mysql"
             },
             help: [
                 "http:///kubernetes.io/docs"
@@ -219,12 +228,11 @@ export interface Link {
     from: string;
     to: string;
 }
-type Kind = "deploy" | "service" | "configMap" | "secret" | "persistentVolume" | "persistentVolumeClaim" | "storageClass" | "volume" | "job" | "cronJob" | "networkPolicy";
-type ServiceType = "ClusterIP" | "NodePort" | "LoadBalancer";
+
 export interface Task {
     id: string;
     name: string;
-    kind: string;
+    kind: Kind;
     requirements: Requirement;
     help: Array<string>;
     template: string;
@@ -236,11 +244,12 @@ interface EmptyRequirement {
 }
 interface ServiceRequirement {
     type: ServiceType;
+    name: string;
     selector: string;
     ports: {
         port: number;
         targetPort: number;
-        nodePort: number;
+        nodePort?: number;
     }
 }
 interface DeployRequirement {
@@ -282,9 +291,14 @@ interface SecretRequirement {
 type AccessMode = "ReadWriteOnce" | "ReadOnlyMany" | "ReadWriteMany";
 
 async function getExercice() : Promise<Exercice> {
-    return Promise.resolve(sample);
+    return Promise.resolve(<Exercice> sample);
 }
 
 export {
-    getExercice
+    getExercice,
+    Requirement,
+    ServiceRequirement,
+    DeployRequirement,
+    SecretRequirement,
+    PersistentVolumeClaimRequirement
 }
