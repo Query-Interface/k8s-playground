@@ -31,7 +31,6 @@ const App: React.FC = () => {
       // TODO: also select node in graph
     }
 
-    console.log("render App");
       return <React.Fragment>
         <Navbar variant="dark" style={{backgroundColor:"#252F3F"}}>
           <Navbar.Brand href="#">k8s Playground</Navbar.Brand>

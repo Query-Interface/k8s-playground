@@ -20,10 +20,8 @@ function App() {
         pods.then((data) => {
             const pod = data.find(pod => pod.metadata.name === "nginx-frontend");
             if (pod) {
-                console.log("found!");
                 content.style.backgroundColor = "green";
             } else {
-                console.log("not found");
                 content.style.backgroundColor = "red";
             }
         });

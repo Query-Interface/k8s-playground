@@ -62,7 +62,6 @@ const Graph: React.FC = () => {
 
     let events = {
         selectNode: function (params: GraphEvent) {
-          console.log("selectNode Event:", params);
           dispatch(setSelectedTask(params.nodes[0]));
           params.event.preventDefault();
         },

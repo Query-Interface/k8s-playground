@@ -288,6 +288,14 @@ interface SecretRequirement {
         value: string;
     }]
 }
+
+interface DetailedRequirement {
+    id: string;
+    completed: boolean;
+    description: string | JSX.Element;
+    
+}
+
 type AccessMode = "ReadWriteOnce" | "ReadOnlyMany" | "ReadWriteMany";
 
 async function getExercice() : Promise<Exercice> {
@@ -300,5 +308,6 @@ export {
     ServiceRequirement,
     DeployRequirement,
     SecretRequirement,
-    PersistentVolumeClaimRequirement
+    PersistentVolumeClaimRequirement,
+    DetailedRequirement
 }
