@@ -48,7 +48,6 @@ const App: React.FC = () => {
           <Col sm={8} style={{backgroundColor: "white", borderTopLeftRadius: "8px", borderBottomLeftRadius: "8px"}}>
             <h1>Graph</h1>
             <Graph />
-            <div style={{height: "30px", width: "30px", backgroundColor: pods ? "green": "red"}}></div>
           </Col>
           <Col sm={4} style={{backgroundColor: "white", borderTopRightRadius: "8px", borderBottomRightRadius: "8px"}}>
             <Row style={{height:"50%", overflow:"auto"}}><Task /></Row>

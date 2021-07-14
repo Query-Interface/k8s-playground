@@ -16,4 +16,3 @@ const Requirement: React.FC<RequirementProps> = ({id, completed, description}: R
 }
 
 export default Requirement;
-

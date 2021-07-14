@@ -14,7 +14,7 @@ const Help: React.FC = () => {
         <Tabs defaultActiveKey="help" transition={false} >
             <Tab key="links" eventKey="help" title="Help">
                 <ul>
-                    {task?.help.map((item) => <li><a href={item}>{item}</a></li>)}
+                    {task?.help.map((item, index) => <li key={index}><a href={item}>{item}</a></li>)}
                 </ul>
             </Tab>
             <Tab key="template" eventKey="template" title="Template">

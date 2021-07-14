@@ -29,24 +29,29 @@ const sample = {
             kind: "deploy",
             requirements: {
                 replicas: 1,
+                selector: "app=drupal",
                 containers: [{
                     image: "drupal:8.6",
                     name: "drupal",
                     mounts: [{
                         path: "/var/www/html/modules",
-                        subPath: "modules"
+                        subPath: "modules",
+                        name: "data"
                     },
                     {
                         path: "/var/www/html/profiles",
-                        subPath: "profiles"
+                        subPath: "profiles",
+                        name: "data"
                     },
                     {
                         path: "/var/www/html/sites",
-                        subPath: "sites"
+                        subPath: "sites",
+                        name: "data"
                     },
                     {
                         path: "/var/www/html/themes",
-                        subPath: "themes"
+                        subPath: "themes",
+                        name: "data"
                     }
                     ]
                 }],
@@ -58,7 +63,8 @@ const sample = {
                 }],
                 volumes: [{
                     type: "pvc",
-                    name: "drupal-pvc"
+                    claimName: "drupal-pvc",
+                    name: "data"
                 }]
             },
             help: [
@@ -115,6 +121,8 @@ const sample = {
             name: "drupal-mysql",
             kind: "deploy",
             requirements: {
+                replicas: 1,
+                selector: "app=drupal-mysql",
                 "todo": "TODO"
             },
             help: [
@@ -254,6 +262,7 @@ interface ServiceRequirement {
 }
 interface DeployRequirement {
     replicas: number;
+    selector: string;
     containers: Array<Container>;
     initContainers: Array<Container>;
     volumes: Array<Volume>;
@@ -270,8 +279,9 @@ interface Container {
     args?: Array<string>;
 }
 interface Volume {
-    name?: string;
+    name: string;
     type: string;
+    claimName?: string;
 }
 interface PersistentVolumeClaimRequirement {
     capacity: string;
@@ -293,7 +303,10 @@ interface DetailedRequirement {
     id: string;
     completed: boolean;
     description: string | JSX.Element;
-    
+}
+
+interface CompositeRequirement extends DetailedRequirement {
+    requirements: Array<DetailedRequirement>;
 }
 
 type AccessMode = "ReadWriteOnce" | "ReadOnlyMany" | "ReadWriteMany";
@@ -309,5 +322,6 @@ export {
     DeployRequirement,
     SecretRequirement,
     PersistentVolumeClaimRequirement,
-    DetailedRequirement
+    DetailedRequirement,
+    CompositeRequirement
 }

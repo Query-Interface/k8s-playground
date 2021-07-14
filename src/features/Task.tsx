@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/rootReducer';
 import { getRequirements } from '../app/appSlice';
+import { CompositeRequirement, DetailedRequirement } from '../api/playground-api';
 import Requirement from './Requirement';
+import ComplexRequirement from './ComplexRequirement';
 
 const Task: React.FC = () => {
     const dispatch = useDispatch();
@@ -18,15 +20,21 @@ const Task: React.FC = () => {
 
     const renderRequirements = () => {
         if (requirements) {
-            return requirements.map((requirement) => <Requirement {...requirement} /> );
+            return requirements.map((requirement) => {
+                return isCompositeRequirement(requirement) ? <ComplexRequirement {...requirement} /> : <Requirement {...requirement} />;
+            });
         }
         return [];
-    }
+    };
+
+    const isCompositeRequirement = (requirement: DetailedRequirement | CompositeRequirement): requirement is CompositeRequirement => {
+        return (requirement as CompositeRequirement).requirements !== undefined;
+    };
 
     return (
         <div style={{width:"100%", paddingTop: "30px"}}>
             <p className="h1">Specification</p>
-            <ul>
+            <ul style={{paddingLeft: "0"}}>
                 { renderRequirements() }
             </ul>
         </div>
