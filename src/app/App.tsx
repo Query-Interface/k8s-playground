@@ -49,7 +49,7 @@ const App: React.FC = () => {
             <h1>Graph</h1>
             <Graph />
           </Col>
-          <Col sm={4} style={{backgroundColor: "white", borderTopRightRadius: "8px", borderBottomRightRadius: "8px"}}>
+          <Col sm={4} style={{backgroundColor: "white", borderTopRightRadius: "8px", borderBottomRightRadius: "8px", maxHeight: "100%" }}>
             <Row style={{height:"50%", overflow:"auto"}}><Task /></Row>
             <Row style={{height:"50%", overflow:"auto"}}><Help /></Row>
           </Col>
