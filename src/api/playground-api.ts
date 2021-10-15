@@ -250,7 +250,12 @@ type Requirement = ( ServiceRequirement | DeployRequirement | PersistentVolumeCl
 interface EmptyRequirement {
 
 }
-interface ServiceRequirement {
+
+interface BaseRequirement {
+    isfulfilled?: boolean;
+}
+
+interface ServiceRequirement extends BaseRequirement {
     type: ServiceType;
     name: string;
     selector: string;
@@ -260,7 +265,7 @@ interface ServiceRequirement {
         nodePort?: number;
     }
 }
-interface DeployRequirement {
+interface DeployRequirement extends BaseRequirement {
     replicas: number;
     selector: string;
     containers: Array<Container>;
@@ -283,12 +288,12 @@ interface Volume {
     type: string;
     claimName?: string;
 }
-interface PersistentVolumeClaimRequirement {
+interface PersistentVolumeClaimRequirement extends BaseRequirement {
     capacity: string;
     mode: AccessMode;
     storageClass?: string;
 }
-interface VolumeClaimRequirement {
+interface VolumeClaimRequirement extends BaseRequirement {
     capacity: string;
     mode: AccessMode;
 }
@@ -303,6 +308,14 @@ interface DetailedRequirement {
     id: string;
     completed: boolean;
     description: string | JSX.Element;
+    kind: Kind;
+    isfulfilled?: boolean;
+    options?: any;
+}
+
+interface RequirementsResponse {
+    taskId: string;
+    requirements: Array<DetailedRequirement>;
 }
 
 interface CompositeRequirement extends DetailedRequirement {
@@ -323,5 +336,6 @@ export {
     SecretRequirement,
     PersistentVolumeClaimRequirement,
     DetailedRequirement,
-    CompositeRequirement
+    CompositeRequirement,
+    RequirementsResponse
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './rootReducer';
-import { fetchExercice, fetchPods, setSelectedTask } from './appSlice';
+import { fetchExercice, fetchPods, fetchSecrets, checkSecrets, setSelectedTask } from './appSlice';
 import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
 import Graph from '../features/Graph';
 import Task from '../features/Task';
@@ -11,20 +11,25 @@ const App: React.FC = () => {
     const dispatch = useDispatch();
     const exercice = useSelector((state: RootState) => state.app.exercice);
     const selectedTaskId = useSelector((state: RootState) => state.app.selectedTaskId); 
-    const pods: boolean = useSelector((state: RootState) => {
-      const podFound = state.app.pods.find(pod => pod.metadata.name === "nginx-frontend");
-      return podFound ? true : false;
-    });
+    const pods = useSelector((state: RootState) => state.app.pods);
+    const secrets = useSelector((state: RootState) => state.app.secrets);
 
     useEffect(() => {
         const timer = setInterval(
-          () => dispatch(fetchPods()), 3000000);
+          () => {
+            dispatch(fetchPods());
+            dispatch(fetchSecrets());
+          }, 30000);
         return () => clearInterval(timer);
       }, [dispatch]);
     
     useEffect(() => {
       dispatch(fetchExercice());
     }, [dispatch]);
+
+    useEffect(() => {
+      dispatch(checkSecrets(exercice, secrets));
+    }, [secrets]);
 
     if (exercice !== null && selectedTaskId == null) {
       dispatch(setSelectedTask(exercice?.tasks[0].id));

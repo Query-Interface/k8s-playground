@@ -13,7 +13,7 @@ const ComplexRequirement: React.FC<ComplexRequirementProps> = ({id, description,
     return (<li key={id} style={{listStyleType: "none"}}><i>{description}</i>
         <ul style={{paddingLeft: "10px"}}>
             {requirements.map((requirement) => {
-                return <li key={id} style={{listStyleType: "none"}}>
+                return <li key={requirement.id} style={{listStyleType: "none"}}>
                 <Icon 
                 type={requirement.completed? "diamondFilled": "diamond"} 
                 color={requirement.completed? "green": "red"} /> {requirement.description}

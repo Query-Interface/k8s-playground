@@ -20,8 +20,8 @@ const Task: React.FC = () => {
 
     const renderRequirements = () => {
         if (requirements) {
-            return requirements.map((requirement) => {
-                return isCompositeRequirement(requirement) ? <ComplexRequirement {...requirement} /> : <Requirement {...requirement} />;
+            return requirements.map((requirement, index) => {
+                return isCompositeRequirement(requirement) ? <ComplexRequirement key={index} {...requirement} /> : <Requirement key={index} {...requirement} />;
             });
         }
         return [];

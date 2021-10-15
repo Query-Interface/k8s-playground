@@ -7,8 +7,14 @@ interface ApiResponse {
 interface Resource {}
 
 interface Pod extends Resource {
-    metadata: Metadata,
-    spec?: Spec
+    metadata: Metadata;
+    spec?: Spec;
+}
+
+interface Secret extends Resource {
+    metadata: Metadata;
+    data: any;
+    type: string;
 }
 
 interface Metadata {
@@ -22,8 +28,26 @@ interface Spec {
 
 }
 
-type Kind = "deploy" | "service" | "configMap" | "secret" | "persistentVolume" | "persistentVolumeClaim" | "storageClass" | "volume" | "job" | "cronJob" | "networkPolicy";
-type ServiceType = "ClusterIP" | "NodePort" | "LoadBalancer";
+enum Kind {
+    Deploy = "deploy",
+    Service = "service",
+    ConfigMap =  "configMap",
+    Secret = "secret",
+    PersistentVolume = "persistentVolume",
+    PersistentVolumeClaim = "persistentVolumeClaim",
+    StorageClass = "storageClass",
+    Volume ="volume",
+    Job = "job",
+    CronJob = "cronJob",
+    NetworkPolicy = "networkPolicy",
+    Container = "container",
+    None = "none"
+}
+enum ServiceType {
+    ClusterIP = "ClusterIP",
+    NodePort = "NodePort",
+    LoadBalancer = "LoadBalancer"
+}
 
 export {
     ApiResponse,
@@ -32,5 +56,6 @@ export {
     Spec,
     Metadata,
     Kind,
-    ServiceType
+    ServiceType,
+    Secret
 }
